@@ -2,6 +2,6 @@
 its a kinda stupid card game lol
 
 Developers
-  jandrebinladen
-  rey-sama
-  megumi
+- jandrebinladen
+- rey-sama
+- megumi
