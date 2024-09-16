@@ -1,2 +1,7 @@
-# high-suit-source-code
-CPE211/L (Data Structures and Algorithms) Final Project 2024
+# High Suit
+its a kinda stupid card game lol
+
+Developers
+jandrebinladen
+rey-sama
+megumi
