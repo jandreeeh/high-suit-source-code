@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\sources\minigame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sources\deck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\headers\deck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\headers\reasing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="raylib_win64_msvc16\CHANGELOG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{1f891e58-66ee-461a-b5c3-7d5380b6403f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0909c9c7-2038-4351-a983-8943386327f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{be896c44-27a5-41d8-b6de-f3f115843297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sprites">
+      <UniqueIdentifier>{f9a1b42d-958d-48f8-a6fb-7a691267087c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sprites\Cards">
+      <UniqueIdentifier>{08fc4bf3-4ca3-493a-889e-58ca382ffb42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\resorces\sprites\cards\SQ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C2.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C3.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C4.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C5.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C6.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C7.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C8.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C9.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\C10.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\CA.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\CJ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\CK.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\CQ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D2.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D3.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D4.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D5.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D6.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D7.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D8.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D9.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\D10.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\DA.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\DJ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\DK.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\DQ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H2.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H3.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H4.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H5.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H6.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H7.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H8.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H9.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\H10.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\HA.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\HJ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\HK.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\HQ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\joker.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S2.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S3.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S4.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S5.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S6.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S7.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S8.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S9.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\S10.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\SA.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\SJ.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+    <Image Include="source\resorces\sprites\cards\SK.png">
+      <Filter>Resource Files\Sprites\Cards</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

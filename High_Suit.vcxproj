@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\sources\deck.cpp" />
+    <ClCompile Include="source\sources\minigame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="raylib_win64_msvc16\CHANGELOG" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\headers\deck.h" />
+    <ClInclude Include="source\headers\reasing.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\resorces\sprites\cards\C10.png" />
+    <Image Include="source\resorces\sprites\cards\C2.png" />
+    <Image Include="source\resorces\sprites\cards\C3.png" />
+    <Image Include="source\resorces\sprites\cards\C4.png" />
+    <Image Include="source\resorces\sprites\cards\C5.png" />
+    <Image Include="source\resorces\sprites\cards\C6.png" />
+    <Image Include="source\resorces\sprites\cards\C7.png" />
+    <Image Include="source\resorces\sprites\cards\C8.png" />
+    <Image Include="source\resorces\sprites\cards\C9.png" />
+    <Image Include="source\resorces\sprites\cards\CA.png" />
+    <Image Include="source\resorces\sprites\cards\CJ.png" />
+    <Image Include="source\resorces\sprites\cards\CK.png" />
+    <Image Include="source\resorces\sprites\cards\CQ.png" />
+    <Image Include="source\resorces\sprites\cards\D10.png" />
+    <Image Include="source\resorces\sprites\cards\D2.png" />
+    <Image Include="source\resorces\sprites\cards\D3.png" />
+    <Image Include="source\resorces\sprites\cards\D4.png" />
+    <Image Include="source\resorces\sprites\cards\D5.png" />
+    <Image Include="source\resorces\sprites\cards\D6.png" />
+    <Image Include="source\resorces\sprites\cards\D7.png" />
+    <Image Include="source\resorces\sprites\cards\D8.png" />
+    <Image Include="source\resorces\sprites\cards\D9.png" />
+    <Image Include="source\resorces\sprites\cards\DA.png" />
+    <Image Include="source\resorces\sprites\cards\DJ.png" />
+    <Image Include="source\resorces\sprites\cards\DK.png" />
+    <Image Include="source\resorces\sprites\cards\DQ.png" />
+    <Image Include="source\resorces\sprites\cards\H10.png" />
+    <Image Include="source\resorces\sprites\cards\H2.png" />
+    <Image Include="source\resorces\sprites\cards\H3.png" />
+    <Image Include="source\resorces\sprites\cards\H4.png" />
+    <Image Include="source\resorces\sprites\cards\H5.png" />
+    <Image Include="source\resorces\sprites\cards\H6.png" />
+    <Image Include="source\resorces\sprites\cards\H7.png" />
+    <Image Include="source\resorces\sprites\cards\H8.png" />
+    <Image Include="source\resorces\sprites\cards\H9.png" />
+    <Image Include="source\resorces\sprites\cards\HA.png" />
+    <Image Include="source\resorces\sprites\cards\HJ.png" />
+    <Image Include="source\resorces\sprites\cards\HK.png" />
+    <Image Include="source\resorces\sprites\cards\HQ.png" />
+    <Image Include="source\resorces\sprites\cards\joker.png" />
+    <Image Include="source\resorces\sprites\cards\S10.png" />
+    <Image Include="source\resorces\sprites\cards\S2.png" />
+    <Image Include="source\resorces\sprites\cards\S3.png" />
+    <Image Include="source\resorces\sprites\cards\S4.png" />
+    <Image Include="source\resorces\sprites\cards\S5.png" />
+    <Image Include="source\resorces\sprites\cards\S6.png" />
+    <Image Include="source\resorces\sprites\cards\S7.png" />
+    <Image Include="source\resorces\sprites\cards\S8.png" />
+    <Image Include="source\resorces\sprites\cards\S9.png" />
+    <Image Include="source\resorces\sprites\cards\SA.png" />
+    <Image Include="source\resorces\sprites\cards\SJ.png" />
+    <Image Include="source\resorces\sprites\cards\SK.png" />
+    <Image Include="source\resorces\sprites\cards\SQ.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0FB5C218-8C56-47DD-BE85-B3D8902425C2}</ProjectGuid>
+    <RootNamespace>raylibtemplate</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>High_Suit</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\raylib_win64_msvc16\include;$(ProjectDir)source\headers</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\raylib_win64_msvc16\lib</LibraryPath>
+    <PublicIncludeDirectories>$(ProjectDir)source\headers;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicModuleDirectories>$(ProjectDir)source\sources;$(PublicModuleDirectories)</PublicModuleDirectories>
+    <SourcePath>$(ProjectDir)source\sources;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\raylib_win64_msvc16\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\raylib_win64_msvc16\lib</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GRAPHICS_API_OPENGL_33;PLATFORM_DESKTOP</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GRAPHICS_API_OPENGL_33;PLATFORM_DESKTOP</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

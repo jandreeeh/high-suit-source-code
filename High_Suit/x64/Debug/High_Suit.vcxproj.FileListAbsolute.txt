@@ -1,0 +1,3 @@
+D:\Project Files\Raylib Projects\High_Suit\x64\Debug\raylib.dll
+D:\Project Files\Raylib Projects\High_Suit\x64\Debug\glfw3.dll
+D:\Project Files\Raylib Projects\High_Suit\High_Suit\x64\Debug\High_Suit.vcxproj.Up2Date
