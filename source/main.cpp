@@ -25,10 +25,6 @@ static Rectangle virtualDest;
 static Vector2 virtualOrigin;
 
 Deck deck;
-Screen* currentScreen;
-MainMenuScreen mainMenuScreen;
-GameScreen gameScreen;
-
 float dt = 0;
 
 int main()
@@ -36,23 +32,25 @@ int main()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "High Suit");
     SetTargetFPS(60);
     AppInit();
-    currentScreen = &mainMenuScreen;
+    GM.SetCurrentScreen(mainMenuScreen);
+    GM.GameInit();
  
     while (!WindowShouldClose())
     {
         dt = GetFrameTime();
 
+        GM.GameUpdate();
         if (IsKeyPressed(KEY_ENTER)) {
-            currentScreen = &gameScreen;
+            GM.TransitionScreen(gameScreen);
         }
         else if(IsKeyPressed(KEY_BACKSPACE)) {
-            currentScreen = &mainMenuScreen;
+            GM.TransitionScreen(mainMenuScreen);
         }
 
         BeginTextureMode(target);
 
             ClearBackground(BLACK);
-            currentScreen->ScreenDraw(dt);
+            GM.GameDraw();
 
         EndTextureMode();
 

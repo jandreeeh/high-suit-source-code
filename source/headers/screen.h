@@ -6,4 +6,5 @@ public:
 	virtual void ScreenUpdate(float dt) {};
 	virtual void ScreenDraw(float dt) {};
 	virtual void ScreenDeInit() {};
+	virtual int getID() { return 0; };
 };
