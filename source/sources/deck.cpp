@@ -7,6 +7,7 @@
 Deck::Deck() {
 	head = NULL;
 	last = NULL;
+	selected = head;
 }
 
 void Deck::insertCard(std::string s, std::string f) {
@@ -39,6 +40,7 @@ void Deck::insertCard(std::string s, std::string f) {
 		temp->prev = last;
 		last = temp;
 	}
+	selected = head;
 
 
 }
@@ -66,6 +68,35 @@ void Deck::displayDeck() {
 			<< " | Value: " << temp->value << std::endl;
 		temp = temp->next;
 		//std::cout << "I worked (DD)" << std::endl;
+	}
+}
+
+void Deck::setSelected(std::string id) {
+	if (findCard(id) == nullptr) {
+		selected = head;
+		return;
+	}
+	selected = findCard(id);
+}
+
+Card* Deck::getSelected() {
+	return selected;
+}
+
+Card* Deck::findCard(std::string id) {
+	if (head == NULL) {
+		std::cout << "The deck is empty!" << std::endl;
+		return nullptr;
+	}
+	Card* temp = head;
+	while (temp != NULL) {
+		if (id == temp->id) {
+			return temp;
+		}
+		temp = temp->next;
+	}
+	if (temp == nullptr){
+		return nullptr;
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "reasing.h"
 #include "deck.h"
+#include "game.h"
 
 //using namespace std;
 
@@ -24,38 +25,42 @@ static Rectangle virtualDest;
 static Vector2 virtualOrigin;
 
 Deck deck;
+Screen* currentScreen;
+MainMenuScreen mainMenuScreen;
+GameScreen gameScreen;
+
+float dt = 0;
 
 int main()
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Shoot Em' Up: A Space Game");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "High Suit");
     SetTargetFPS(60);
-
-    FormGeneralDeck(deck);
-    deck.displayDeck();
-
     AppInit();
-    Texture2D card = LoadTexture("source/resources/sprites/cards/C2.png");
-
+    currentScreen = &mainMenuScreen;
+ 
     while (!WindowShouldClose())
     {
+        dt = GetFrameTime();
 
-
+        if (IsKeyPressed(KEY_ENTER)) {
+            currentScreen = &gameScreen;
+        }
+        else if(IsKeyPressed(KEY_BACKSPACE)) {
+            currentScreen = &mainMenuScreen;
+        }
 
         BeginTextureMode(target);
 
-        DrawText("Help me", 100, 100, 40, WHITE);
-        DrawTexture(card, 50, 150, WHITE);
+            ClearBackground(BLACK);
+            currentScreen->ScreenDraw(dt);
 
         EndTextureMode();
 
         BeginDrawing();
-        ClearBackground(BLACK);
+    
+            DrawTexturePro(target.texture, virtualSource, virtualDest, virtualOrigin, 0.0f, WHITE);
+            DrawFPS(20, 20);
 
-
-        DrawTexturePro(target.texture, virtualSource, virtualDest, virtualOrigin, 0.0f, WHITE);
-        DrawFPS(20, 20);
-
-        //End drawing function
         EndDrawing();
 
     }

@@ -13,17 +13,23 @@ struct Card {
 };
 
 class Deck {
-
-public:
+private:
 
 	Card* head;
 	Card* last;
+	Card* selected;
+
+public:
+
 	Deck();
 
 	void insertCard(std::string s, std::string f);
 	void playCard();
 	void removeCard(std::string id);
 	void displayDeck();
+	void setSelected(std::string id);
+	Card* getSelected();
+	Card* findCard(std::string id);
 
 };
 
