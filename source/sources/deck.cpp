@@ -3,15 +3,41 @@
 #include <string>
 
 #include "deck.h"
+#include "globals.h"
+#include "reasing.h"
 
-Deck::Deck() {
-	head = NULL;
-	last = NULL;
-	selected = head;
+Deck::Deck(bool isPlayable) {
+	this->head = NULL;
+	this->last = NULL;
+	this->selected = head;
+	this->isSlide = false;
+	this->isPlayable = isPlayable;
+}
+void Deck::deckUpdate(float dt, Mouse mouse) {
+	isHover(mouse);
+	//std::cout << "Mouse X: " << mouse.position.x << "\n";
+
+	for (int i = 0; i < hands.size(); i++) {
+		hands[i].hitbox.x = hands[i].position.x;
+		hands[i].hitbox.y = hands[i].position.y;
+	}
+
+
+	if (IsKeyPressed(KEY_ENTER)) { isSlide = true; }
+	if (isSlide) {
+		slideCards(75, 20, dt);
+	}
+	
 }
 
+void Deck::deckDraw() {
+	for (int i = 0; i < hands.size(); i++) {
+		DrawTextureEx(hands[i].sprite, hands[i].position, 0, hands[i].scale, WHITE);
+	}
+}
 void Deck::insertCard(std::string s, std::string f) {
 	Card* temp;
+	RenderCard tempH;
 	int v;
 	std::string id;
 
@@ -31,23 +57,43 @@ void Deck::insertCard(std::string s, std::string f) {
 	temp->next = NULL;
 	temp->prev = NULL;
 
-	if (head == NULL) { 
-		head = temp; 
-		last = head; 
+	insertExisitingCard(temp);
+}
+
+void Deck::insertExisitingCard(Card* card) {
+	
+	RenderCard tempH;
+
+	std::string filename = "source/resources/sprites/cards/" + card->id + ".png";
+	tempH.sprite = LoadTexture(filename.c_str());
+	tempH.position.x = (VSCREEN_WIDTH / 2) - tempH.sprite.width / 2;
+	tempH.position.y = 0 - tempH.sprite.height;
+	tempH.origX = tempH.position.x;
+	tempH.origY = tempH.position.y;
+	tempH.hitbox.x = tempH.position.x;
+	tempH.hitbox.y = tempH.position.y;
+	tempH.hitbox.height = tempH.sprite.height;
+	tempH.hitbox.width = tempH.sprite.width;
+	tempH.card = card;
+
+	hands.emplace_back(tempH);
+
+	if (head == NULL) {
+		head = card;
+		last = head;
 	}
 	else {
-		last->next = temp;
-		temp->prev = last;
-		last = temp;
+		last->next = card;
+		card->prev = last;
+		last = card;
 	}
 	selected = head;
-
-
 }
 
 void Deck::playCard() {
 
 }
+
 
 void Deck::removeCard(std::string id) {
 
@@ -79,8 +125,60 @@ void Deck::setSelected(std::string id) {
 	selected = findCard(id);
 }
 
+
+void Deck::slideCards(int x, int y, float dt) {
+	int width = VSCREEN_WIDTH - (2 * x);
+	for (int i = 0; i < hands.size(); i++) {
+		hands[i].time += dt;
+		int newX = x + (width / hands.size()) * i;
+
+		if (!hands[i].stop) {
+			hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origX, newX - hands[i].origX, 0.5f + (0.1 * i));
+			hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origY, y - hands[i].origY, 0.5f + (0.1 * i));
+
+			if (hands[i].position.x >= newX - 0.1 && hands[i].position.y >= y - 0.1){ 
+					hands[i].stop = true; 
+					hands[i].origX = hands[i].position.x;
+					hands[i].origY = hands[i].position.y;
+			}
+
+		}
+	}
+}
+
+void Deck::isHover(Mouse mouse) {
+	for (int i = 0; i < hands.size(); i++) {
+		if (hands[i].stop) {
+			int newY = hands[i].origY - 3;
+			if (CheckCollisionRecs(hands[i].hitbox, mouse.hitbox)) {
+				hands[i].position.y = newY;
+				std::cout << "Im hovering " << hands[i].card->id << "\n";
+			}
+			else {
+				hands[i].position.y = hands[i].origY;
+			}
+		}
+	}
+}
+
 Card* Deck::getSelected() {
 	return selected;
+}
+
+Card* Deck::getAtIndex(int index) {
+	Card* temp = head;
+	for (int i = 0; i < index; i++) {
+		if(temp->next != nullptr) temp = temp->next;
+	}
+	return temp;
+}
+
+Card* Deck::transferCard(int index) {
+	Card* temp = getAtIndex(index);
+	if (temp->prev != nullptr) { temp->prev->next = temp->next;}
+	if (temp->next != nullptr) temp->next->prev = temp->prev;
+	temp->prev = temp->next = nullptr;
+	return temp;
 }
 
 Card* Deck::findCard(std::string id) {

@@ -1,9 +1,7 @@
 #pragma once
-#include "screen.h"
-#include "mainMenuScreen.h"
-#include "gameScreen.h"
 #include "gameManager.h"
+#include "globals.h"
 
-GameManager GM;
-MainMenuScreen mainMenuScreen;
-GameScreen gameScreen;
+extern GameManager GM;
+
+

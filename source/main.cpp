@@ -5,16 +5,9 @@
 #include "reasing.h"
 #include "deck.h"
 #include "game.h"
+#include "globals.h"
 
 //using namespace std;
-
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define VSCREEN_WIDTH 320
-#define VSCREEN_HEIGHT 180
-
-#define MAX(a, b) ((a)>(b)? (a) : (b)) //Used for virtual screen
-#define MIN(a, b) ((a)<(b)? (a) : (b))
 
 void AppInit();
 
@@ -24,28 +17,24 @@ static Rectangle virtualSource;
 static Rectangle virtualDest;
 static Vector2 virtualOrigin;
 
-Deck deck;
+GameManager GM;
 float dt = 0;
+float mainTime = 0;
 
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "High Suit");
     SetTargetFPS(60);
     AppInit();
-    GM.SetCurrentScreen(mainMenuScreen);
     GM.GameInit();
  
     while (!WindowShouldClose())
     {
         dt = GetFrameTime();
+        /*mainTime += dt;
+        std::cout << "Time: " << mainTime << "\n";*/
 
-        GM.GameUpdate();
-        if (IsKeyPressed(KEY_ENTER)) {
-            GM.TransitionScreen(gameScreen);
-        }
-        else if(IsKeyPressed(KEY_BACKSPACE)) {
-            GM.TransitionScreen(mainMenuScreen);
-        }
+        GM.GameUpdate(dt);
 
         BeginTextureMode(target);
 
@@ -63,14 +52,12 @@ int main()
 
     }
 
-    //GameDeInitialize();
 
     CloseWindow();
     return 0;
 }
 
 void AppInit() {
-    // Initialization for virtual screen. This allows the program to render the game at 480x270 and display at 1280x720
     scale = MIN((float)GetScreenWidth() / VSCREEN_WIDTH, (float)GetScreenHeight() / VSCREEN_HEIGHT);
     std::cout << scale << "\n";
     target = LoadRenderTexture(VSCREEN_WIDTH, VSCREEN_HEIGHT);
@@ -81,6 +68,4 @@ void AppInit() {
     virtualDest = { 0, 0, (float)VSCREEN_WIDTH * scale, (float)VSCREEN_HEIGHT * scale };
     virtualOrigin = { 0, 0 };
 
-    //game.h
-    //GameInitialize();
 }
