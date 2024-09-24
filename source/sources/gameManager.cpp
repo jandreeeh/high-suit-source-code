@@ -65,7 +65,8 @@ Screen* GameManager::SetNextScreen(int screen) {
     case MAIN_GAME:
         return &gameScreen;
         break;
-   ///* case MINIGAME:
-   //     break;
+   case MINIGAME:
+       return &minigameScreen;
+       break;
     }
 }

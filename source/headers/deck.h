@@ -50,12 +50,13 @@ public:
 
 	void insertCard(std::string s, std::string f);
 	void insertExisitingCard(Card* card);
+	void insertJoker();
 	void playCard();
 	void removeCard(std::string id);
 	void setSelected(std::string id);
 	void displayDeck();
 
-	void slideCards(int x, int y, float dt);
+	void slideCards(int x, int y, float dt, bool toArrange);
 	void isHover(Mouse mouse);
 	Card* getSelected();
 	Card* getAtIndex(int index);

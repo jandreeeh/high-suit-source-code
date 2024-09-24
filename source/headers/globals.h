@@ -14,3 +14,4 @@ enum states {
 #define VSCREEN_WIDTH 320
 #define VSCREEN_HEIGHT 180
 
+//Font font = LoadFont("source/resources/superstar.ttf");

@@ -3,9 +3,8 @@
 class Minigame {
 
 public:
-	void MinigameInit();
-	void MinigameUpdate();
-	void MinigameDraw();
-	void MinigameDeInit();
-
+	virtual void MinigameInit();
+	virtual void MinigameUpdate();
+	virtual void MinigameDraw();
+	virtual void MinigameDeInit();
 };

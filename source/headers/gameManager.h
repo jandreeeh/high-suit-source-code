@@ -4,11 +4,13 @@
 #include "screen.h"
 #include "mainMenuScreen.h"
 #include "gameScreen.h"
+#include "minigameScreen.h"
 
 class GameManager {
 private:
 	MainMenuScreen mainMenuScreen;
 	GameScreen gameScreen;
+	MinigameScreen minigameScreen;
 
 	Screen* currentScreen = &mainMenuScreen;
 	Screen* nextScreen = nullptr;

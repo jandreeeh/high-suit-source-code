@@ -18,13 +18,16 @@ static Rectangle virtualDest;
 static Vector2 virtualOrigin;
 
 GameManager GM;
+Font font;
 float dt = 0;
 float mainTime = 0;
+
 
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "High Suit");
     SetTargetFPS(60);
+    font = LoadFont("source/resources/superstar.ttf");
     AppInit();
     GM.GameInit();
  

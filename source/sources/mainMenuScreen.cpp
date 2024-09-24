@@ -14,7 +14,7 @@ void MainMenuScreen::ScreenUpdate(float dt){
 }
 void MainMenuScreen::ScreenDraw(float dt){
 	ClearBackground(RED);
-	DrawText("Main Menu", 100, 100, 10, WHITE);
+	DrawTextEx(font, "Main Menu", Vector2{100, 100}, 16, 0, WHITE);
 }
 int MainMenuScreen::getID() {
 	return 20;

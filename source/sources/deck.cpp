@@ -14,18 +14,16 @@ Deck::Deck(bool isPlayable) {
 	this->isPlayable = isPlayable;
 }
 void Deck::deckUpdate(float dt, Mouse mouse) {
-	isHover(mouse);
+	if (isPlayable) {
+		isHover(mouse);
+	}
 	//std::cout << "Mouse X: " << mouse.position.x << "\n";
 
-	for (int i = 0; i < hands.size(); i++) {
-		hands[i].hitbox.x = hands[i].position.x;
-		hands[i].hitbox.y = hands[i].position.y;
-	}
 
 
 	if (IsKeyPressed(KEY_ENTER)) { isSlide = true; }
 	if (isSlide) {
-		slideCards(75, 20, dt);
+		slideCards(75, 20, dt, true);
 	}
 	
 }
@@ -90,6 +88,18 @@ void Deck::insertExisitingCard(Card* card) {
 	selected = head;
 }
 
+void Deck::insertJoker() {
+	Card* temp = new Card;
+	temp->face = "Joker";
+	temp->suit = "Joker";
+	temp->value = 20;
+	temp->id = "joker";
+	temp->next = NULL;
+	temp->prev = NULL;
+
+	insertExisitingCard(temp);
+}
+
 void Deck::playCard() {
 
 }
@@ -126,22 +136,27 @@ void Deck::setSelected(std::string id) {
 }
 
 
-void Deck::slideCards(int x, int y, float dt) {
+void Deck::slideCards(int x, int y, float dt, bool toArrange) {
 	int width = VSCREEN_WIDTH - (2 * x);
 	for (int i = 0; i < hands.size(); i++) {
 		hands[i].time += dt;
-		int newX = x + (width / hands.size()) * i;
 
-		if (!hands[i].stop) {
-			hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origX, newX - hands[i].origX, 0.5f + (0.1 * i));
-			hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origY, y - hands[i].origY, 0.5f + (0.1 * i));
+		if (toArrange) {
+			int newX = x + (width / hands.size()) * i;
 
-			if (hands[i].position.x >= newX - 0.1 && hands[i].position.y >= y - 0.1){ 
-					hands[i].stop = true; 
-					hands[i].origX = hands[i].position.x;
-					hands[i].origY = hands[i].position.y;
+			if (!hands[i].stop) {
+				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origX, newX - hands[i].origX, 0.5f + (0.1 * i));
+				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origY, y - hands[i].origY, 0.5f + (0.1 * i));
+
+				if (hands[i].position.x >= newX - 0.1 && hands[i].position.y >= y - 0.1){ 
+						hands[i].stop = true; 
+						hands[i].origX = hands[i].position.x;
+						hands[i].origY = hands[i].position.y;
+						hands[i].hitbox.x = hands[i].position.x;
+						hands[i].hitbox.y = hands[i].position.y;
+				}
+
 			}
-
 		}
 	}
 }
@@ -177,6 +192,8 @@ Card* Deck::transferCard(int index) {
 	Card* temp = getAtIndex(index);
 	if (temp->prev != nullptr) { temp->prev->next = temp->next;}
 	if (temp->next != nullptr) temp->next->prev = temp->prev;
+	if (temp == head) head = head->next;
+
 	temp->prev = temp->next = nullptr;
 	return temp;
 }
