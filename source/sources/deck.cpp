@@ -9,22 +9,37 @@
 Deck::Deck(bool isPlayable) {
 	this->head = NULL;
 	this->last = NULL;
-	this->selected = head;
+	this->selected = NULL;
 	this->isSlide = false;
 	this->isPlayable = isPlayable;
 }
 void Deck::deckUpdate(float dt, Mouse mouse) {
-	if (isPlayable) {
-		isHover(mouse);
-	}
 	//std::cout << "Mouse X: " << mouse.position.x << "\n";
-
-
-
 	if (IsKeyPressed(KEY_ENTER)) { isSlide = true; }
 	if (isSlide) {
-		slideCards(75, 20, dt, true);
+		slideCards(Vector2{ ((VSCREEN_WIDTH / 2) - (30/2)), -40 }, Vector2{ 75, 20 }, dt, true);
 	}
+	else {
+
+		if (isPlayable) {
+			isHover(mouse);
+		}
+
+		for (int i = 0; i < hands.size(); i++) {
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && hands[i].isHover) {
+				selected = hands[i].card;
+				std::cout << hands[i].card->id << " has been selected.\n";
+			}
+
+			if (hands[i].card == selected && !isSlide) {
+				int newY = hands[i].origPos.y - 5;
+				hands[i].position.y = newY;
+			}
+
+		}
+
+	}
+
 	
 }
 
@@ -66,8 +81,8 @@ void Deck::insertExisitingCard(Card* card) {
 	tempH.sprite = LoadTexture(filename.c_str());
 	tempH.position.x = (VSCREEN_WIDTH / 2) - tempH.sprite.width / 2;
 	tempH.position.y = 0 - tempH.sprite.height;
-	tempH.origX = tempH.position.x;
-	tempH.origY = tempH.position.y;
+	tempH.origPos.x = tempH.position.x;
+	tempH.origPos.y = tempH.position.y;
 	tempH.hitbox.x = tempH.position.x;
 	tempH.hitbox.y = tempH.position.y;
 	tempH.hitbox.height = tempH.sprite.height;
@@ -85,7 +100,7 @@ void Deck::insertExisitingCard(Card* card) {
 		card->prev = last;
 		last = card;
 	}
-	selected = head;
+	selected = NULL;
 }
 
 void Deck::insertJoker() {
@@ -136,27 +151,49 @@ void Deck::setSelected(std::string id) {
 }
 
 
-void Deck::slideCards(int x, int y, float dt, bool toArrange) {
-	int width = VSCREEN_WIDTH - (2 * x);
+bool setInit = true;
+
+void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange) {
+	int width = VSCREEN_WIDTH - (2 * final.x);
 	for (int i = 0; i < hands.size(); i++) {
 		hands[i].time += dt;
 
-		if (toArrange) {
-			int newX = x + (width / hands.size()) * i;
+		if(setInit){
+			hands[i].position = init;
+			hands[i].origPos = init;
+			if (hands[hands.size() - 1].position.x == init.x && hands[hands.size() - 1].position.y == init.y) {
+				setInit = false;
+			}
+			std::cout << "what\n";
+		}
+		else {
+			if (toArrange) {
+				hands[i].newPos.x = final.x + (width / hands.size()) * i;
+				hands[i].newPos.y = final.y;
+				//std::cout << i << " " << hands[i].newPos.x << ", " << hands[i].newPos.y <<"\n";
+
+			}
+			else {
+				hands[i].newPos = final;
+
+			}
 
 			if (!hands[i].stop) {
-				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origX, newX - hands[i].origX, 0.5f + (0.1 * i));
-				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origY, y - hands[i].origY, 0.5f + (0.1 * i));
+				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origPos.x, hands[i].newPos.x - hands[i].origPos.x, 0.5f + (0.1 * i));
+				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origPos.y, hands[i].newPos.y - hands[i].origPos.y, 0.5f + (0.1 * i));
 
-				if (hands[i].position.x >= newX - 0.1 && hands[i].position.y >= y - 0.1){ 
-						hands[i].stop = true; 
-						hands[i].origX = hands[i].position.x;
-						hands[i].origY = hands[i].position.y;
-						hands[i].hitbox.x = hands[i].position.x;
-						hands[i].hitbox.y = hands[i].position.y;
+				if (hands[i].position.x >= hands[i].newPos.x && hands[i].position.y >= final.y){
+					hands[i].stop = true; 
+					hands[i].origPos.x = hands[i].position.x;
+					hands[i].origPos.y = hands[i].position.y;
+					hands[i].hitbox.x = hands[i].position.x;
+					hands[i].hitbox.y = hands[i].position.y;
 				}
 
 			}
+		}
+		if (hands[hands.size() - 1].stop) {
+			isSlide = false;
 		}
 	}
 }
@@ -164,13 +201,15 @@ void Deck::slideCards(int x, int y, float dt, bool toArrange) {
 void Deck::isHover(Mouse mouse) {
 	for (int i = 0; i < hands.size(); i++) {
 		if (hands[i].stop) {
-			int newY = hands[i].origY - 3;
+			int newY = hands[i].origPos.y - 3;
 			if (CheckCollisionRecs(hands[i].hitbox, mouse.hitbox)) {
 				hands[i].position.y = newY;
-				std::cout << "Im hovering " << hands[i].card->id << "\n";
+				hands[i].isHover = true;
+				//std::cout << "Im hovering " << hands[i].card->id << "\n";
 			}
 			else {
-				hands[i].position.y = hands[i].origY;
+				hands[i].position.y = hands[i].origPos.y;
+				hands[i].isHover = false;
 			}
 		}
 	}

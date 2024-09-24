@@ -14,7 +14,7 @@ Button::Button(std::string filename, Vector2 position, bool visible) {
 }
 void Button::buttonInit() {
 	sprite = LoadTexture(filename.c_str());
-	hitbox = Rectangle{ position.x, position.y, (float)sprite.width, (float)sprite.height };
+	hitbox = Rectangle{ position.x, position.y, (float)sprite.width/2, (float)sprite.height };
 	frame = Rectangle{ 0.0f, 0.0f, (float)sprite.width / 2, (float)sprite.height };
 }
 void Button::buttonUpdate(float dt, Mouse mouse) {

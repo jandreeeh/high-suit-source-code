@@ -20,13 +20,14 @@ struct Card {
 
 struct RenderCard{
 	Vector2 position;
+	Vector2 origPos;
+	Vector2 newPos;
 	Texture2D sprite;
 	Rectangle hitbox;
-	int origX;
-	int origY;
 	float time = 0;
 	float scale = 1;
 	bool stop = false;
+	bool isHover;
 
 	Card* card;
 };
@@ -56,7 +57,7 @@ public:
 	void setSelected(std::string id);
 	void displayDeck();
 
-	void slideCards(int x, int y, float dt, bool toArrange);
+	void slideCards(Vector2 init, Vector2 final, float dt, bool toArrange);
 	void isHover(Mouse mouse);
 	Card* getSelected();
 	Card* getAtIndex(int index);
