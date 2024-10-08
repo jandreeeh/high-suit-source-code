@@ -26,6 +26,7 @@ static Deck selectDeck(false);
 static Mouse mouse;
 static Button nextBtn("next", Vector2{ 262, 125 }, true);
 static Button selectBtn("select", Vector2{250, 115}, true);
+static Texture2D bg;
 
 static int totaldeck = 52;
 static bool setup = true;
@@ -45,6 +46,7 @@ void GameScreen::ScreenInit() {
 	nextBtn.setVisible(false);
 	selectBtn.setVisible(false);
 	deckSetup = true;
+	bg = LoadTexture("source/resources/sprites/bg/table.png");
 
 	if (currentStage == DECK_BUILD && deckSetup) {
 		setRandomCards();
@@ -104,7 +106,7 @@ void GameScreen::ScreenUpdate(float dt) {
 			if (gameClock > 0.5) { bossDeck.setSliding(true); }
 
 			if (bossDeck.getSliding()) {
-				bossDeck.slideCards(Vector2{ ((VSCREEN_WIDTH / 2) - (30 / 2)), -40 }, Vector2{ 75, 20 }, dt, true, 0.5);
+				bossDeck.slideCards(Vector2{ ((VSCREEN_WIDTH / 2) - (30 / 2)), -40 }, Vector2{ 70, 15 }, dt, true, 0.5);
 			}
 			if (bossDeck.getDoneSliding()) {
 				pState = INPUT;
@@ -146,6 +148,9 @@ void GameScreen::ScreenUpdate(float dt) {
 void GameScreen::ScreenDraw(float dt) {
 	ClearBackground(GREEN);
 	DrawTextEx(font, "Main Game", Vector2{ 100, 100 }, 16, 0, WHITE);
+
+	DrawTexture(bg, 0, 0, WHITE);
+
 	bossDeck.deckDraw();
 	selectDeck.deckDraw();
 	nextBtn.buttonDraw();

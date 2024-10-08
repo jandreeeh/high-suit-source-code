@@ -15,6 +15,7 @@ Deck::Deck(bool isPlayable) {
 }
 void Deck::deckUpdate(float dt, Mouse mouse) {
 	//std::cout << "Mouse X: " << mouse.position.x << "\n";
+	// maglaban si boss fight
 
 	if (isPlayable) {
 		isHover(mouse);

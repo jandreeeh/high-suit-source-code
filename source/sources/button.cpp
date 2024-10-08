@@ -34,7 +34,7 @@ void Button::buttonDraw() {
 }
 
 void Button::onHover(Mouse mouse) {
-	int newX = origPos.x + 5;
+	int newX = origPos.x + 3;
 	if (CheckCollisionRecs(hitbox, mouse.hitbox)) {
 		position.x = newX;
 		frame.x = sprite.width / 2;
