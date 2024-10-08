@@ -1,15 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="source\sources\minigame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\sources\deck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\sources\mainMenuScreen.cpp" />
+    <ClCompile Include="source\sources\gameScreen.cpp" />
+    <ClCompile Include="source\sources\gameManager.cpp" />
+    <ClCompile Include="source\sources\transition.cpp" />
+    <ClCompile Include="source\sources\minigameScreen.cpp" />
+    <ClCompile Include="source\sources\button.cpp" />
+    <ClCompile Include="source\headers\minigames\minigameTemp.h" />
+    <ClCompile Include="source\sources\minigames\minigameTemp.cpp" />
+    <ClCompile Include="source\sources\minigameHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\headers\deck.h">
@@ -18,9 +24,28 @@
     <ClInclude Include="source\headers\reasing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\headers\minigame.h" />
+    <ClInclude Include="source\headers\screen.h" />
+    <ClInclude Include="source\headers\mainMenuScreen.h" />
+    <ClInclude Include="source\headers\gameScreen.h" />
+    <ClInclude Include="source\headers\game.h" />
+    <ClInclude Include="source\headers\gameManager.h" />
+    <ClInclude Include="source\headers\transition.h" />
+    <ClInclude Include="source\headers\globals.h" />
+    <ClInclude Include="source\headers\minigameScreen.h" />
+    <ClInclude Include="source\headers\button.h" />
+    <ClInclude Include="raylib_win64_msvc16\include\raylib.h" />
+    <ClInclude Include="raylib_win64_msvc16\include\raymath.h" />
+    <ClInclude Include="raylib_win64_msvc16\include\rlgl.h" />
+    <ClInclude Include="source\headers\minigameHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="raylib_win64_msvc16\CHANGELOG" />
+    <None Include="source\resources\card.aseprite" />
+    <None Include="source\resources\cards.aseprite" />
+    <None Include="raylib_win64_msvc16\lib\raylib.dll" />
+    <None Include="raylib_win64_msvc16\LICENSE" />
+    <None Include="raylib_win64_msvc16\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -199,5 +224,73 @@
     <Image Include="source\resorces\sprites\cards\SK.png">
       <Filter>Resource Files\Sprites\Cards</Filter>
     </Image>
+    <Image Include="source\resources\sprites\cards\C2.png" />
+    <Image Include="source\resources\sprites\cards\C3.png" />
+    <Image Include="source\resources\sprites\cards\C4.png" />
+    <Image Include="source\resources\sprites\cards\C5.png" />
+    <Image Include="source\resources\sprites\cards\C6.png" />
+    <Image Include="source\resources\sprites\cards\C7.png" />
+    <Image Include="source\resources\sprites\cards\C8.png" />
+    <Image Include="source\resources\sprites\cards\C9.png" />
+    <Image Include="source\resources\sprites\cards\C10.png" />
+    <Image Include="source\resources\sprites\cards\CA.png" />
+    <Image Include="source\resources\sprites\cards\CJ.png" />
+    <Image Include="source\resources\sprites\cards\CK.png" />
+    <Image Include="source\resources\sprites\cards\CQ.png" />
+    <Image Include="source\resources\sprites\cards\D2.png" />
+    <Image Include="source\resources\sprites\cards\D3.png" />
+    <Image Include="source\resources\sprites\cards\D4.png" />
+    <Image Include="source\resources\sprites\cards\D5.png" />
+    <Image Include="source\resources\sprites\cards\D6.png" />
+    <Image Include="source\resources\sprites\cards\D7.png" />
+    <Image Include="source\resources\sprites\cards\D8.png" />
+    <Image Include="source\resources\sprites\cards\D9.png" />
+    <Image Include="source\resources\sprites\cards\D10.png" />
+    <Image Include="source\resources\sprites\cards\DA.png" />
+    <Image Include="source\resources\sprites\cards\DJ.png" />
+    <Image Include="source\resources\sprites\cards\DK.png" />
+    <Image Include="source\resources\sprites\cards\DQ.png" />
+    <Image Include="source\resources\sprites\cards\H2.png" />
+    <Image Include="source\resources\sprites\cards\H3.png" />
+    <Image Include="source\resources\sprites\cards\H4.png" />
+    <Image Include="source\resources\sprites\cards\H5.png" />
+    <Image Include="source\resources\sprites\cards\H6.png" />
+    <Image Include="source\resources\sprites\cards\H7.png" />
+    <Image Include="source\resources\sprites\cards\H8.png" />
+    <Image Include="source\resources\sprites\cards\H9.png" />
+    <Image Include="source\resources\sprites\cards\H10.png" />
+    <Image Include="source\resources\sprites\cards\HA.png" />
+    <Image Include="source\resources\sprites\cards\HJ.png" />
+    <Image Include="source\resources\sprites\cards\HK.png" />
+    <Image Include="source\resources\sprites\cards\HQ.png" />
+    <Image Include="source\resources\sprites\cards\joker.png" />
+    <Image Include="source\resources\sprites\cards\S2.png" />
+    <Image Include="source\resources\sprites\cards\S3.png" />
+    <Image Include="source\resources\sprites\cards\S4.png" />
+    <Image Include="source\resources\sprites\cards\S5.png" />
+    <Image Include="source\resources\sprites\cards\S6.png" />
+    <Image Include="source\resources\sprites\cards\S7.png" />
+    <Image Include="source\resources\sprites\cards\S8.png" />
+    <Image Include="source\resources\sprites\cards\S9.png" />
+    <Image Include="source\resources\sprites\cards\S10.png" />
+    <Image Include="source\resources\sprites\cards\SA.png" />
+    <Image Include="source\resources\sprites\cards\SJ.png" />
+    <Image Include="source\resources\sprites\cards\SK.png" />
+    <Image Include="source\resources\sprites\cards\SQ.png" />
+    <Image Include="source\resources\sprites\buttons\credits.png" />
+    <Image Include="source\resources\sprites\buttons\next.png" />
+    <Image Include="source\resources\sprites\buttons\play.png" />
+    <Image Include="source\resources\sprites\buttons\quit.png" />
+    <Image Include="source\resources\sprites\buttons\select.png" />
+    <Image Include="source\resources\sprites\bg\menu.png" />
+    <Image Include="source\resources\sprites\bg\logo.png" />
+    <Image Include="source\resources\sprites\bg\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="source\resources\superstar.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="raylib_win64_msvc16\lib\raylib.lib" />
+    <Library Include="raylib_win64_msvc16\lib\raylibdll.lib" />
   </ItemGroup>
 </Project>
