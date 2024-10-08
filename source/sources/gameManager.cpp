@@ -30,6 +30,8 @@ void GameManager::GameUpdate(float dt) {
     }
     else {
         currentScreen->ScreenUpdate(dt);
+        if (currentScreen == NULL) {
+        }
     }
 }
 

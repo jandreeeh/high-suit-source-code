@@ -19,6 +19,7 @@ static Vector2 virtualOrigin;
 
 GameManager GM;
 Font font;
+MGHandler MinigameHandler;
 float dt = 0;
 float mainTime = 0;
 
@@ -34,9 +35,6 @@ int main()
     while (!WindowShouldClose())
     {
         dt = GetFrameTime();
-        /*mainTime += dt;
-        std::cout << "Time: " << mainTime << "\n";*/
-
         GM.GameUpdate(dt);
 
         BeginTextureMode(target);

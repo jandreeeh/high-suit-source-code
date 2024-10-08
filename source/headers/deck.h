@@ -40,6 +40,7 @@ private:
 	Card* selected;
 	bool isSlide;
 	bool isPlayable = false;
+	bool doneSlide = false;
 
 
 public:
@@ -57,10 +58,17 @@ public:
 	void setSelected(std::string id);
 	void displayDeck();
 
-	void slideCards(Vector2 init, Vector2 final, float dt, bool toArrange);
+	void slideCards(Vector2 init, Vector2 final, float dt, bool toArrange, float duration);
 	void isHover(Mouse mouse);
+
+	bool getDoneSliding();
+	bool getSliding();
+	void setSliding(bool set);
+	void setPlayable(bool b);
+	bool hasSelected();
 	Card* getSelected();
 	Card* getAtIndex(int index);
+	
 	Card* transferCard(int index);
 	Card* findCard(std::string id);
 

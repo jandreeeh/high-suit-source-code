@@ -15,16 +15,9 @@ Deck::Deck(bool isPlayable) {
 }
 void Deck::deckUpdate(float dt, Mouse mouse) {
 	//std::cout << "Mouse X: " << mouse.position.x << "\n";
-	if (IsKeyPressed(KEY_ENTER)) { isSlide = true; }
-	if (isSlide) {
-		slideCards(Vector2{ ((VSCREEN_WIDTH / 2) - (30/2)), -40 }, Vector2{ 75, 20 }, dt, true);
-	}
-	else {
 
-		if (isPlayable) {
-			isHover(mouse);
-		}
-
+	if (isPlayable) {
+		isHover(mouse);
 		for (int i = 0; i < hands.size(); i++) {
 			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && hands[i].isHover) {
 				selected = hands[i].card;
@@ -37,10 +30,9 @@ void Deck::deckUpdate(float dt, Mouse mouse) {
 			}
 
 		}
-
 	}
 
-	
+
 }
 
 void Deck::deckDraw() {
@@ -79,8 +71,8 @@ void Deck::insertExisitingCard(Card* card) {
 
 	std::string filename = "source/resources/sprites/cards/" + card->id + ".png";
 	tempH.sprite = LoadTexture(filename.c_str());
-	tempH.position.x = (VSCREEN_WIDTH / 2) - tempH.sprite.width / 2;
-	tempH.position.y = 0 - tempH.sprite.height;
+	tempH.position.x = 0 - tempH.sprite.width;
+	tempH.position.y = VSCREEN_HEIGHT/2;
 	tempH.origPos.x = tempH.position.x;
 	tempH.origPos.y = tempH.position.y;
 	tempH.hitbox.x = tempH.position.x;
@@ -150,17 +142,29 @@ void Deck::setSelected(std::string id) {
 	selected = findCard(id);
 }
 
+void Deck::setPlayable(bool b) {
+	isPlayable = b;
+}
+
+bool Deck::hasSelected() {
+	if (selected != nullptr) return true;
+	else { return false; }
+}
 
 bool setInit = true;
 
-void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange) {
-	int width = VSCREEN_WIDTH - (2 * final.x);
+void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange, float duration) {
+	int width = (VSCREEN_WIDTH  - (2 * final.x)) - hands[0].sprite.width;
+	doneSlide = false;
+
 	for (int i = 0; i < hands.size(); i++) {
 		hands[i].time += dt;
 
 		if(setInit){
 			hands[i].position = init;
 			hands[i].origPos = init;
+			hands[i].stop = false;
+
 			if (hands[hands.size() - 1].position.x == init.x && hands[hands.size() - 1].position.y == init.y) {
 				setInit = false;
 			}
@@ -168,9 +172,8 @@ void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange) {
 		}
 		else {
 			if (toArrange) {
-				hands[i].newPos.x = final.x + (width / hands.size()) * i;
+				hands[i].newPos.x = final.x + ((width / (hands.size()-1)) * i);
 				hands[i].newPos.y = final.y;
-				//std::cout << i << " " << hands[i].newPos.x << ", " << hands[i].newPos.y <<"\n";
 
 			}
 			else {
@@ -179,10 +182,10 @@ void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange) {
 			}
 
 			if (!hands[i].stop) {
-				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origPos.x, hands[i].newPos.x - hands[i].origPos.x, 0.5f + (0.1 * i));
-				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origPos.y, hands[i].newPos.y - hands[i].origPos.y, 0.5f + (0.1 * i));
+				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origPos.x, hands[i].newPos.x - hands[i].origPos.x, duration + (0.1 * i));
+				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origPos.y, hands[i].newPos.y - hands[i].origPos.y, duration + (0.1 * i));
 
-				if (hands[i].position.x >= hands[i].newPos.x && hands[i].position.y >= final.y){
+				if (hands[i].position.x >= hands[i].newPos.x - 0.001 && hands[i].position.y >= final.y - 0.001){
 					hands[i].stop = true; 
 					hands[i].origPos.x = hands[i].position.x;
 					hands[i].origPos.y = hands[i].position.y;
@@ -194,6 +197,7 @@ void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange) {
 		}
 		if (hands[hands.size() - 1].stop) {
 			isSlide = false;
+			doneSlide = true;
 		}
 	}
 }
@@ -214,6 +218,17 @@ void Deck::isHover(Mouse mouse) {
 		}
 	}
 }
+
+bool Deck::getSliding() {
+	return isSlide;
+}
+bool Deck::getDoneSliding() {
+	return doneSlide;
+}
+void Deck::setSliding(bool set) {
+	isSlide = set;
+}
+
 
 Card* Deck::getSelected() {
 	return selected;

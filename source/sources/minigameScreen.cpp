@@ -10,9 +10,12 @@ void MinigameScreen::ScreenInit() {
 
 }
 void MinigameScreen::ScreenUpdate(float dt) {
-	ClearBackground(BLUE);
-	DrawTextEx(font, "Minigame", Vector2{ 100, 100 }, 16, 0, WHITE);
+	if (IsKeyPressed(KEY_A)) {
+		GM.TransitionScreen(MAIN_GAME, 0.5);
+	}
 }
 void MinigameScreen::ScreenDraw(float dt) {
+	ClearBackground(BLUE);
+	DrawTextEx(font, "Minigame", Vector2{ 100, 100 }, 16, 0, WHITE);
 
 }
