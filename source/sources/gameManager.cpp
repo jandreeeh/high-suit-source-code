@@ -10,7 +10,9 @@ void GameManager::GameInit() {
 
 void GameManager::GameUpdate(float dt) {
     if (transitioning) {
-        //std::cout << transitionDuration << "\n";
+        
+       
+ std::cout << transitionDuration << "\n";
         if (transition.getAlpha() < 1.0f && nextScreen != nullptr) {
             transition.fadeIn(transitionDuration, dt);
         }

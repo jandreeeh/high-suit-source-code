@@ -126,7 +126,6 @@ void GameScreen::ScreenInit() {
 				jokerIn = false;
 			}
 			else {
-				//i--;
 				index = GetRandomValue(0, totaldeck);
 				std::cout << index << "\n";
 				bossDeck.insertExisitingCard(mainDeck.transferCard(index));
@@ -156,7 +155,6 @@ void GameScreen::ScreenInit() {
 		endGame = false;
 	}
 
-	//bossDeck.displayDeck();
 
 
 	scale = MIN((float)GetScreenWidth() / VSCREEN_WIDTH, (float)GetScreenHeight() / VSCREEN_HEIGHT);
@@ -406,7 +404,6 @@ void GameScreen::ScreenUpdate(float dt) {
 				playerDeck.setPlayable(false);
 				playerDeck.setSliding(true);
 				pState = HYPE;
-				std::cout << "yarr\n";
 			}
 
 		}
@@ -602,7 +599,6 @@ void GameScreen::ScreenUpdate(float dt) {
 
 void GameScreen::ScreenDraw(float dt) {
 	ClearBackground(GREEN);
-	//DrawTextEx(font, "Main Game", Vector2{ 100, 100 }, 16, 0, WHITE);
 
 	BeginMode2D(camera);
 
