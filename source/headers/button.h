@@ -23,6 +23,8 @@ public:
 	void buttonInit();
 	void buttonUpdate(float dt, Mouse mouse);
 	void buttonDraw();
+	void buttonDeInit();
 	void setVisible(bool visible);
 	bool getSelected();
+	void setSelected(bool set);
 };

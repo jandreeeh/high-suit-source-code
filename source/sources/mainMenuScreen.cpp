@@ -10,8 +10,8 @@
 
 static Texture2D bg;
 static Texture2D logo;
-static Button playBtn("play", Vector2{ 32, 90 }, true);
-static Button exitBtn("quit", Vector2{ 32, 120 }, true);
+static Button playBtn("play", Vector2{ 32, 100 }, true);
+static Button exitBtn("quit", Vector2{ 32, 130 }, true);
 static Mouse mouse;
 static float scale;
 
@@ -38,7 +38,12 @@ void MainMenuScreen::ScreenUpdate(float dt){
 	playBtn.buttonUpdate(dt, mouse);
 	exitBtn.buttonUpdate(dt, mouse);
 	if (playBtn.getSelected()) {
+		playBtn.setSelected(false);
 		GM.TransitionScreen(MAIN_GAME, 1);
+	}
+	if (exitBtn.getSelected()) {
+		exitBtn.setSelected(false);
+		CloseWindow();
 	}
 }
 void MainMenuScreen::ScreenDraw(float dt){

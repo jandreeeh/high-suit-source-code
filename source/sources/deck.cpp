@@ -1,10 +1,17 @@
 #include <raylib.h>
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "deck.h"
 #include "globals.h"
 #include "reasing.h"
+
+float getDistance(Vector2 vec1, Vector2 vec2) {
+	float dx = vec2.x - vec1.x;
+	float dy = vec2.y - vec1.y;
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
 
 Deck::Deck(bool isPlayable) {
 	this->head = NULL;
@@ -13,6 +20,7 @@ Deck::Deck(bool isPlayable) {
 	this->isSlide = false;
 	this->isPlayable = isPlayable;
 }
+
 void Deck::deckUpdate(float dt, Mouse mouse) {
 	//std::cout << "Mouse X: " << mouse.position.x << "\n";
 	// maglaban si boss fight
@@ -33,12 +41,26 @@ void Deck::deckUpdate(float dt, Mouse mouse) {
 		}
 	}
 
+	if (isHidden) {
+		RenderCard temp;
+		for (int i = 0; i < hands.size(); i++) {
+			if (selected = hands[i].card) {
+				temp = hands[i];
+			}
+		}
+
+		back.position = temp.position;
+	}
 
 }
 
 void Deck::deckDraw() {
 	for (int i = 0; i < hands.size(); i++) {
 		DrawTextureEx(hands[i].sprite, hands[i].position, 0, hands[i].scale, WHITE);
+	}
+	if (isHidden) {
+		DrawTextureEx(back.sprite, back.position, 0, 1, WHITE);
+
 	}
 }
 void Deck::insertCard(std::string s, std::string f) {
@@ -67,7 +89,7 @@ void Deck::insertCard(std::string s, std::string f) {
 }
 
 void Deck::insertExisitingCard(Card* card) {
-	
+
 	RenderCard tempH;
 
 	std::string filename = "source/resources/sprites/cards/" + card->id + ".png";
@@ -94,6 +116,47 @@ void Deck::insertExisitingCard(Card* card) {
 		last = card;
 	}
 	selected = NULL;
+	std::cout << "Card ID: " << card->id
+		<< " | Suit: " << card->suit
+		<< " | Face: " << card->face
+		<< " | Value: " << card->value << std::endl;
+}
+
+void Deck::insertSelectedExisitingCard(Card* card) {
+
+	RenderCard tempH;
+
+	std::string filename = "source/resources/sprites/cards/" + card->id + ".png";
+	tempH.sprite = LoadTexture(filename.c_str());
+	tempH.position.x = 0 - tempH.sprite.width;
+	tempH.position.y = VSCREEN_HEIGHT / 2;
+	tempH.origPos.x = tempH.position.x;
+	tempH.origPos.y = tempH.position.y;
+	tempH.hitbox.x = tempH.position.x;
+	tempH.hitbox.y = tempH.position.y;
+	tempH.hitbox.height = tempH.sprite.height;
+	tempH.hitbox.width = tempH.sprite.width;
+	tempH.card = card;
+
+	hands.emplace_back(tempH);
+
+	if (head == NULL) {
+		head = card;
+		last = head;
+		card->prev = nullptr;
+		card->next = nullptr;
+		std::cout << "no head\n";
+	}
+	else {
+		last->next = card;
+		card->prev = last;
+		last = card;
+	}
+	selected = head;
+	std::cout << "Card ID: " << selected->id
+		<< " | Suit: " << selected->suit
+		<< " | Face: " << selected->face
+		<< " | Value: " << selected->value << std::endl;
 }
 
 void Deck::insertJoker() {
@@ -135,6 +198,45 @@ void Deck::displayDeck() {
 	}
 }
 
+void Deck::displayRenderDeck() {
+	if (!hands.empty()) {
+		for (int i = 0; i < hands.size(); i++) {
+			Card* temp;
+			temp = hands[i].card;
+			std::cout << "Card ID: " << temp->id
+					<< " | Suit: " << temp->suit
+					<< " | Face: " << temp->face
+					<< " | Value: " << temp->value << std::endl;
+		}
+	}
+	else {
+		std::cout << "Deck Empty\n";
+	}
+}
+
+
+void Deck::clearDeck() {
+	Card* current = head;
+	while (current != nullptr) {
+		Card* nextCard = current->next;
+		delete current; 
+		current = nextCard;
+	}
+	if (!hands.empty()) {
+		for (int i = 0; i < hands.size() ; i++) {
+			UnloadTexture(hands[i].sprite);
+
+		}
+		hands.clear();	
+	}
+
+	head = nullptr;
+	last = nullptr;
+	selected = nullptr;
+
+	std::cout << "Deck has been cleared." << std::endl;
+}
+
 void Deck::setSelected(std::string id) {
 	if (findCard(id) == nullptr) {
 		selected = head;
@@ -152,56 +254,78 @@ bool Deck::hasSelected() {
 	else { return false; }
 }
 
-bool setInit = true;
+static bool setInit = true;
 
-void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange, float duration) {
+void Deck::slideCards(Vector2 init, Vector2 final, float dt, bool toArrange, bool keepPos, float duration) {
 	int width = (VSCREEN_WIDTH  - (2 * final.x)) - hands[0].sprite.width;
 	doneSlide = false;
 
-	for (int i = 0; i < hands.size(); i++) {
-		hands[i].time += dt;
-
-		if(setInit){
-			hands[i].position = init;
-			hands[i].origPos = init;
+	if (setInit) {
+		for (int i = 0; i < hands.size(); i++) {
 			hands[i].stop = false;
+			hands[i].time = 0.0f;
 
-			if (hands[hands.size() - 1].position.x == init.x && hands[hands.size() - 1].position.y == init.y) {
-				setInit = false;
+			if (!keepPos) {
+
+				// Set initial position only if we are not keeping the current position
+				hands[i].position = init;
+				hands[i].origPos = init;
 			}
-			std::cout << "what\n";
-		}
-		else {
+			else {
+				hands[i].origPos = hands[i].position;
+			}
 			if (toArrange) {
-				hands[i].newPos.x = final.x + ((width / (hands.size()-1)) * i);
-				hands[i].newPos.y = final.y;
+				if (hands.size() == 1) { hands[i].newPos.x = final.x + width / 2; }
+				else { hands[i].newPos.x = final.x + ((width / (hands.size() - 1)) * i); }
 
+				hands[i].newPos.y = final.y;
 			}
 			else {
 				hands[i].newPos = final;
-
-			}
-
-			if (!hands[i].stop) {
-				hands[i].position.x = EaseSineOut(hands[i].time, hands[i].origPos.x, hands[i].newPos.x - hands[i].origPos.x, duration + (0.1 * i));
-				hands[i].position.y = EaseSineOut(hands[i].time, hands[i].origPos.y, hands[i].newPos.y - hands[i].origPos.y, duration + (0.1 * i));
-
-				if (hands[i].position.x >= hands[i].newPos.x - 0.001 && hands[i].position.y >= final.y - 0.001){
-					hands[i].stop = true; 
-					hands[i].origPos.x = hands[i].position.x;
-					hands[i].origPos.y = hands[i].position.y;
-					hands[i].hitbox.x = hands[i].position.x;
-					hands[i].hitbox.y = hands[i].position.y;
-				}
-
 			}
 		}
-		if (hands[hands.size() - 1].stop) {
-			isSlide = false;
-			doneSlide = true;
+		// Set init state to false after initialization is complete
+		setInit = false;
+	}
+
+	for (int i = 0; i < hands.size(); i++) {
+		if (!hands[i].stop) {
+			//std::cout << i << ": " << getDistance(hands[i].position, hands[i].newPos) << "\n";
+
+			// Update position over time using easing function
+			hands[i].position.x = EaseQuadInOut(hands[i].time, hands[i].origPos.x, hands[i].newPos.x - hands[i].origPos.x, duration + (0.1f * i));
+			hands[i].position.y = EaseQuadInOut(hands[i].time, hands[i].origPos.y, hands[i].newPos.y - hands[i].origPos.y, duration + (0.1f * i));
+
+			// Increase time for the card
+			hands[i].time += GetFrameTime();
+
+			// Stop sliding if the card reaches its target position
+			if (getDistance(hands[i].position, hands[i].newPos) <= 0.1f) {
+				hands[i].stop = true;
+				hands[i].origPos = hands[i].position;
+				hands[i].hitbox.x = hands[i].position.x;
+				hands[i].hitbox.y = hands[i].position.y;
+			}
 		}
 	}
+
+	// Optional: Check if all cards have finished sliding
+	bool allCardsStopped = true;
+	for (int i = 0; i < hands.size(); i++) {
+		if (!hands[i].stop) {
+			allCardsStopped = false;
+			break;
+		}
+	}
+	if (allCardsStopped) {
+		std::cout << "All cards have completed sliding.\n";
+		// Reset flags or perform any post-animation logic if needed
+		isSlide = false;
+		doneSlide = true;
+		setInit = true;
+	}
 }
+		
 
 void Deck::isHover(Mouse mouse) {
 	for (int i = 0; i < hands.size(); i++) {
@@ -220,14 +344,28 @@ void Deck::isHover(Mouse mouse) {
 	}
 }
 
+void Deck::initBackCard() {
+	back.sprite = LoadTexture("source/resources/sprites/cards/back.png");
+	back.position = Vector2{ -100, -100 };
+}
+void Deck::hideSelected(bool set) {
+	isHidden = set;
+}
+
 bool Deck::getSliding() {
 	return isSlide;
 }
+
+void Deck::setSliding(bool set) {
+	isSlide = set;
+}
+
 bool Deck::getDoneSliding() {
 	return doneSlide;
 }
-void Deck::setSliding(bool set) {
-	isSlide = set;
+
+void Deck::setDoneSliding(bool set) {
+	doneSlide = set;
 }
 
 
@@ -245,13 +383,88 @@ Card* Deck::getAtIndex(int index) {
 
 Card* Deck::transferCard(int index) {
 	Card* temp = getAtIndex(index);
-	if (temp->prev != nullptr) { temp->prev->next = temp->next;}
-	if (temp->next != nullptr) temp->next->prev = temp->prev;
+
+	for (int i = 0; i < hands.size(); i++) {
+		if (hands[i].card == temp) {
+			UnloadTexture(hands[i].sprite);
+			hands.erase(hands.begin() + i);
+			break;
+		}
+	}
+
 	if (temp == head) head = head->next;
+	if (temp == last) last = last->prev;
+	if (temp->prev != nullptr) { temp->prev->next = temp->next; }
+	if (temp->next != nullptr) temp->next->prev = temp->prev;
 
 	temp->prev = temp->next = nullptr;
 	return temp;
 }
+
+Card* Deck::transferSelectedCard() {
+	Card* temp = getSelected();
+	if (!hands.empty()) {
+		for (int i = 0; i < hands.size(); i++) {
+			if (hands[i].card == temp) {
+				UnloadTexture(hands[i].sprite);
+				hands.erase(hands.begin() + i);
+				break;
+
+			}
+		}
+
+	}
+
+	if (temp != nullptr) {
+		if (temp == head) head = head->next;
+		if (temp == last) last = last->prev;
+		if (temp->prev != nullptr) { temp->prev->next = temp->next; }
+		if (temp->next != nullptr) temp->next->prev = temp->prev;
+
+		temp->prev = temp->next = nullptr;
+		selected = nullptr;
+		return temp;
+	}
+	else {
+		return nullptr;
+	}
+}
+Card* Deck::transferRandomCard() {
+	int index = GetRandomValue(0, hands.size() - 1);  // Select a random index
+	Card* temp = hands[index].card;  // Get the card from the random index
+
+	if (!hands.empty()) {
+		UnloadTexture(hands[index].sprite);
+		hands.erase(hands.begin() + index);
+	}
+
+	if (temp != nullptr) {
+		// Update head and last pointers
+		if (temp == head) {
+			head = head->next;
+		}
+		if (temp == last) {
+			last = last->prev;
+		}
+
+		// Safely update prev and next links
+		if (temp->prev != nullptr) {
+			temp->prev->next = temp->next;
+		}
+		if (temp->next != nullptr) {
+			temp->next->prev = temp->prev;
+		}
+
+		// Reset pointers for the removed card
+		temp->prev = temp->next = nullptr;
+		selected = nullptr;
+
+		return temp;
+	}
+
+	return nullptr;
+}
+
 
 Card* Deck::findCard(std::string id) {
 	if (head == NULL) {
@@ -269,7 +482,6 @@ Card* Deck::findCard(std::string id) {
 		return nullptr;
 	}
 }
-
 
 
 void FormGeneralDeck(Deck &deck) {

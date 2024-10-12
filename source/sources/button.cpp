@@ -33,6 +33,10 @@ void Button::buttonDraw() {
 	}
 }
 
+void Button::buttonDeInit() {
+	UnloadTexture(sprite);
+}
+
 void Button::onHover(Mouse mouse) {
 	int newX = origPos.x + 3;
 	if (CheckCollisionRecs(hitbox, mouse.hitbox)) {
@@ -49,6 +53,10 @@ void Button::onHover(Mouse mouse) {
 
 bool Button::getSelected() {
 	return isSelected;
+}
+
+void Button::setSelected(bool set) {
+	isSelected = set;
 }
 
 void Button::setVisible(bool visible) {
